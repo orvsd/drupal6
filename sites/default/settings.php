@@ -183,7 +183,7 @@ ini_set('url_rewriter.tags',        '');
 # ini_set('pcre.recursion_limit', 200000);
 
 // Safer / less verbose error reporting
-error_reporting(E_ALL & ~E_NOTICE);
+error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
 
 /**
  * Drupal automatically generates a unique session cookie name for each site
