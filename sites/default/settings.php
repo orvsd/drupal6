@@ -208,7 +208,7 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_WARNING);
  *
  * Remove the leading hash signs to enable.
  */
-# $conf = array(
+$conf = array(
 #   'site_name' => 'My Drupal site',
 #   'theme_default' => 'minnelli',
 #   'anonymous' => 'Visitor',
@@ -237,7 +237,7 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_WARNING);
  * about this setting, do not have a reverse proxy, or Drupal operates in
  * a shared hosting environment, this setting should be set to disabled.
  */
-#   'reverse_proxy' => TRUE,
+  'reverse_proxy' => TRUE,
 /**
  * reverse_proxy accepts an array of IP addresses.
  *
@@ -248,8 +248,8 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_WARNING);
  * reverse proxies. Otherwise, the client could directly connect to
  * your web server spoofing the X-Forwarded-For headers.
  */
-#   'reverse_proxy_addresses' => array('a.b.c.d', ...),
-# );
+  'reverse_proxy_addresses' => array('140.211.15.203', '140.211.15.204'),
+);
 
 /**
  * String overrides:
@@ -277,6 +277,21 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_WARNING);
  * threshold has elapsed since installation.
  */
 # $conf['pressflow_smart_start'] = TRUE;
+
+/**
+ * ORVSD SSL Proxy Overrides
+ */
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+  $base_root = $_SERVER['HTTP_X_FORWARDED_PROTO'];
+  if ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') $_SERVER['SERVER_PORT'] = 443;
+}
+elseif (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+  $base_root = 'https';
+}
+else {
+  $base_root = 'http';
+}
+$base_url = $base_root .= '://'. $_SERVER['HTTP_HOST'];
 
 // ORVSD settings.php include
 require_once('/data/drupalsites/' . $orvsduser . '/drupal6/' . $orvsdfqdn . '/settings.php');
