@@ -293,6 +293,18 @@ else {
 }
 $base_url = $base_root .= '://'. $_SERVER['HTTP_HOST'];
 
+$conf = array(
+  'cache_inc' => './sites/all/modules/memcache/memcache.inc',
+  'memcache_servers' => array('10.1.0.228:11211' => 'default',
+                              '10.1.0.229:11211' => 'default',
+                              '10.1.0.230:11211' => 'default',
+                              '10.1.0.231:11211' => 'default',
+                              '10.1.0.225:11211' => 'default',
+                              '10.1.0.179:11211' => 'default'),
+  'memcache_bins' => array('cache' => 'default'),
+  'memcache_key_prefix' => $orvsdfqdn,
+);
+
 // ORVSD settings.php include
 require_once('/data/drupalsites/' . $orvsduser . '/drupal6/' . $orvsdfqdn . '/settings.php');
 
